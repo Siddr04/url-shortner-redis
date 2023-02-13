@@ -18,26 +18,6 @@
       <button class="btn btn-success" type="submit">Shrink</button>
     </form>
     
-    <!-- <table class="table table-striped table-responsive">
-      <thead>
-        <tr>
-          <th>Full URL</th>
-          <th>Short URL</th>
-          <th>Clicks</th>
-        </tr>
-      </thead>
-      <tbody>
-       <% if (shortUrls) { %>
-        <% shortUrls.forEach(shortUrl => { %>
-          <tr>
-            <td><a href="<%= shortUrl.full %>"><%= shortUrl.full %></a></td>
-            <td><a href="<%= shortUrl.short %>"><%= shortUrl.short %></a></td>
-            <td><%= shortUrl.clicks %></td>
-          </tr>
-        <% }) %>
-       <% } %>
-      </tbody>
-    </table> -->
     <% if (prevUrl != "") { %>
       Your shortened URL:
       <a href="<%= prevUrl %>"><%= prevUrl %></a>

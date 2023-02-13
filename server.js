@@ -25,15 +25,10 @@ let hostURL = process.env.HOST || "http://localhost:5000/"
 let prevUrl = ""
 
 app.get('/', async (req, res) => {
-  // const shortUrls = await ShortUrl.find()
-  // const shortUrls = await client.hGetAll("short-url:redis")
-  // res.render('index', { shortUrls: shortUrls })
-  res.render('index', {shortUrls: null, prevUrl: prevUrl})
-  // console.log(typeof(shortUrls), " , ", shortUrls)
+  res.render('index', {prevUrl: prevUrl})
 })
 
 app.post('/shortUrls', async (req, res) => {
-  // await ShortUrl.create({ full: req.body.fullUrl })
   let fullUrl = req.body.fullUrl
   let newShortUrl = shortid.generate()
   await client.hSet("short-url:redis", newShortUrl, fullUrl)
@@ -45,13 +40,7 @@ app.post('/shortUrls', async (req, res) => {
 app.get('/:shortUrl', async (req, res) => {
   let shortUrl = req.params.shortUrl
   let fullUrl = await client.hGet("short-url:redis", shortUrl)
-  // const shortUrl = await ShortUrl.findOne({ short: req.params.shortUrl })
-  // if (shortUrl == null) return res.sendStatus(404)
-
-  // shortUrl.clicks++
-  // shortUrl.save()
   res.redirect(fullUrl)
-  // res.redirect(shortUrl.full)
 })
 
 app.listen(process.env.PORT || 5000);
