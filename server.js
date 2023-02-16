@@ -9,14 +9,14 @@ const redis = require("redis");
 // Connect to redis at 127.0.0.1 port 6379 no password.
 const client = redis.createClient();
 (async () => {
-    await client.connect();
+  await client.connect();
 })();
 console.log("Connecting to the Redis");
 client.on("ready", () => {
-    console.log("Connected!");
+  console.log("Connected!");
 });
 client.on("error", (err) => {
-    console.log("Error in the Connection");
+  console.log("Error in the Connection");
 });
 
 
@@ -25,14 +25,14 @@ let hostURL = process.env.HOST || "http://localhost:5000/"
 let prevUrl = ""
 
 app.get('/', async (req, res) => {
-  res.render('index', {prevUrl: prevUrl})
+  res.render('index', { prevUrl: prevUrl })
 })
 
 app.post('/shortUrls', async (req, res) => {
   let fullUrl = req.body.fullUrl
   let newShortUrl = shortid.generate()
   await client.hSet("short-url:redis", newShortUrl, fullUrl)
-  prevUrl = hostURL+newShortUrl
+  prevUrl = hostURL + newShortUrl
   console.log("Full url : ", fullUrl, " shortened to ", prevUrl);
   res.redirect('/')
 })
